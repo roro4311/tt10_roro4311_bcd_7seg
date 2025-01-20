@@ -7,27 +7,15 @@ module tt_um_bcd_7seg (
     output wire [7:0] uio_oe,     // Output enable for uio_out
     input wire [7:0] uio_in,      // External inputs (not used in this design)
     input wire ena,               // Enable signal
-    // Seven-segment display outputs
-    output wire seg_a,            // Segment A of the seven-segment display
-    output wire seg_b,            // Segment B of the seven-segment display
-    output wire seg_c,            // Segment C of the seven-segment display
-    output wire seg_d,            // Segment D of the seven-segment display
-    output wire seg_e,            // Segment E of the seven-segment display
-    output wire seg_f,            // Segment F of the seven-segment display
-    output wire seg_g             // Segment G of the seven-segment display
+    // Seven-segment display outputs as a single 7-bit vector
+    output wire [6:0] seg         // Combined 7-segment display output
 );
 
 // Internal signals
 reg [6:0] seg_output;  // Stores the output for the 7-segment display
 
-// Assign each segment to its corresponding bit in seg_output
-assign seg_a = seg_output[6];
-assign seg_b = seg_output[5];
-assign seg_c = seg_output[4];
-assign seg_d = seg_output[3];
-assign seg_e = seg_output[2];
-assign seg_f = seg_output[1];
-assign seg_g = seg_output[0];
+// Assign the 7-segment output directly to the combined wire
+assign seg = seg_output;
 
 // Assign unused outputs to default values
 assign uo_out = 8'b0;
