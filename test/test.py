@@ -28,15 +28,7 @@ async def test_bcd_to_7seg(dut):
     await RisingEdge(dut.clk)  # Allow some delay for outputs to stabilize
 
     # Collect segment outputs
-    seg_output = (
-        (dut.seg_a.value << 6) |
-        (dut.seg_b.value << 5) |
-        (dut.seg_c.value << 4) |
-        (dut.seg_d.value << 3) |
-        (dut.seg_e.value << 2) |
-        (dut.seg_f.value << 1) |
-        (dut.seg_g.value << 0)
-    )
+    seg_output = dut.seg.value  # Directly access the 7-bit seg output
 
     # Assertion for BCD 9
     assert seg_output == expected_segments, (
