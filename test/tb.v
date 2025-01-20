@@ -6,13 +6,7 @@ module tb;
     reg rst_n;
     reg [7:0] ui_in;
     reg ena;
-    wire seg_a;
-    wire seg_b;
-    wire seg_c;
-    wire seg_d;
-    wire seg_e;
-    wire seg_f;
-    wire seg_g;
+    wire [6:0] seg;  // Combined 7-segment display output
 
     // Instantiate the DUT
     tt_um_bcd_7seg dut (
@@ -24,13 +18,7 @@ module tb;
         .uio_oe(),
         .uio_in(8'b0),
         .ena(ena),
-        .seg_a(seg_a),
-        .seg_b(seg_b),
-        .seg_c(seg_c),
-        .seg_d(seg_d),
-        .seg_e(seg_e),
-        .seg_f(seg_f),
-        .seg_g(seg_g)
+        .seg(seg)  // Connect to the 7-bit seg output
     );
 
     // Clock generation
@@ -51,6 +39,9 @@ module tb;
         ena = 1;
         #10 ui_in = 8'b0000_1001; // Input value for 9
         #50; // Wait to observe output
+
+        // Display the 7-segment output
+        $display("7-segment display for input 9: %b", seg);
 
         // Finish simulation
         $stop;
