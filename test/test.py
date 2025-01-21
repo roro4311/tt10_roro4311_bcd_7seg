@@ -27,12 +27,12 @@ async def test_bcd_to_7seg(dut):
     await RisingEdge(dut.clk)
     await RisingEdge(dut.clk)  # Allow some delay for outputs to stabilize
 
-    # Collect segment outputs
-    seg_output = dut.seg.value  # Directly access the 7-bit seg output
+    # Collect 7-segment outputs from uo_out
+    uo_out = dut.uo_out.value.binstr[1:8]  # Extract the 7 bits corresponding to the segments
 
     # Assertion for BCD 9
-    assert seg_output == expected_segments, (
-        f"BCD {bcd}: Expected {bin(expected_segments)}, got {bin(seg_output)}"
+    assert uo_out == format(expected_segments, '07b'), (
+        f"BCD {bcd}: Expected {format(expected_segments, '07b')}, got {uo_out}"
     )
 
-    dut._log.info(f"BCD {bcd} test passed: Output {bin(seg_output)} matches expected {bin(expected_segments)}.")
+    dut._log.info(f"BCD {bcd} test passed: Output {uo_out} matches expected {format(expected_segments, '07b')}.")
