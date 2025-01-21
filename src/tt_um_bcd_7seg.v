@@ -6,19 +6,16 @@ module tt_um_bcd_7seg (
     output wire [7:0] uio_out,    // Decoded ASCII output for external use
     output wire [7:0] uio_oe,     // Output enable for uio_out
     input wire [7:0] uio_in,      // External inputs (not used in this design)
-    input wire ena,               // Enable signal
-    // Seven-segment display outputs as a single 7-bit vector
-    output wire [6:0] seg         // Combined 7-segment display output
+    input wire ena               // Enable signal
 );
 
 // Internal signals
 reg [6:0] seg_output;  // Stores the output for the 7-segment display
 
-// Assign the 7-segment output directly to the combined wire
-assign seg = seg_output;
+// Assign combined 7-segment output directly to uo_out
+assign uo_out = {1'b0, seg_output};  // Combine and output as 8-bit value, with an unused MSB
 
 // Assign unused outputs to default values
-assign uo_out = 8'b0;
 assign uio_out = 8'b0;
 assign uio_oe = 8'b0;
 
