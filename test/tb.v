@@ -32,12 +32,12 @@ module tb;
         ena = 0;
 
         // Apply reset
-        #10 rst_n = 1;
+        #1000 rst_n = 1;
 
         // Test for BCD input 9
         ena = 1;
-        #10 ui_in = 8'b00001001; // Input value for 9 (BCD)
-        #50; // Wait to observe output
+        #1000 ui_in = 8'b00001001; // Input value for 9 (BCD)
+        #5000; // Wait to observe output
 
         // Display the 7-segment output
         $display("7-segment display for input 9: %b", uo_out[6:0]);  // Output should match 7-segment encoding for 9
